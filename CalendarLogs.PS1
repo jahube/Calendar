@@ -4,7 +4,7 @@
 $user = "user@domain.com"
 $startDays = "-14"
 $endDays = "30"
-$Subject = "" #Subject
+$Subject = "" #Subject   leave subject "" to skip filter or any string / date range to match against
 
 $path = "C:\Temp"
 
