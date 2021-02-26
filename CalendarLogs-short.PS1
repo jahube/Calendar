@@ -9,7 +9,7 @@ $startDays = "-14"     # [-] days in past
 $path = "C:\Temp"
 
 ############################################################################################################
-$st = (get-date).AddDays($startDays).ToShortDateString() ; $ed = (get-date).AddDays($endDays).ToShortDateString() ;
+$st = (get-date).AddDays($startDays).tostring(“MM/dd/yyyy”); $ed = (get-date).AddDays($endDays).tostring(“MM/dd/yyyy”);
 $Cld = Get-CalendarDiagnosticLog $user -StartDate $start -EndDate $end -WA silentlycontinue ;
 $Cal=$Cld.Where({$_.NormalizedSubject -match $S -or $_.NormalizedSubject -eq $S})|sort-Object CleanGlobalObjectId -Unique;
 $count= $Cal.count ; $label = "Calendarlogs for [$user]" ;  for ($C = 0; $C -lt $Cal.count; $C++) { 
