@@ -28,7 +28,7 @@ $path = $logsPATH
       $ed = (get-date).AddDays($endDays).tostring(“MM/dd/yyyy”);
 $Calendar = Get-CalendarDiagnosticLog $user -StartDate $start -EndDate $end -WA silentlycontinue ;
 
-$Cal = $Calendar | select NormalizedSubject,LogDate,CleanGlobalObjectId | sort-Object NormalizedSubject,LogDate,CleanGlobalObjectId -Unique | Out-Gridview -PassThru -Title "Select Events for Calendar Logs"
+$Cal = $Calendar | select NormalizedSubject,LogDate,CleanGlobalObjectId | sort-Object CleanGlobalObjectId -Unique | Out-Gridview -PassThru -Title "Select Events for Calendar Logs"
 
 
    $count = $Cal.count ; $label = "Calendarlogs for [$user]"
