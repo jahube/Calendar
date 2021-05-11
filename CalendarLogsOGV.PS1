@@ -20,12 +20,15 @@ $Select = $MBXs | select userprincipalname,Displayname,windows*,Alias,Exchangegu
 $User = "$($Select.userprincipalname)"
 
 $startDays = "-30" # [-] days in past
+$startDays2 = "-90" # [-] days in past
   $endDays = "30"  # [+] days in future
  
 $path = $logsPATH
 
-      $st = (get-date).AddDays($startDays).tostring(“MM/dd/yyyy”); 
-      $ed = (get-date).AddDays($endDays).tostring(“MM/dd/yyyy”);
+   $start = (get-date).AddDays($startDays).tostring(“MM/dd/yyyy”); 
+  $start2 = (get-date).AddDays($startDays2).tostring(“MM/dd/yyyy”); 
+     $end = (get-date).AddDays($endDays).tostring(“MM/dd/yyyy”);
+
 $Calendar = Get-CalendarDiagnosticLog $user -StartDate $start -EndDate $end -WA silentlycontinue ;
 
 $CalV = $Calendar | select NormalizedSubject,LogDate,CleanGlobalObjectId | sort-Object NormalizedSubject,LogDate -Unique | Out-Gridview -PassThru -Title "Select Events for Calendar Logs"
@@ -39,7 +42,7 @@ $Cal = $CalV | sort-Object CleanGlobalObjectId -Unique
        
        Write-Progress -Activity $A -Status $S -PercentComplete (($C/$count)*100) -SecondsRemaining ($count-$C) ;
 
-             $Out = Get-CalendarDiagnosticObjects -Identity $user -MeetingId $ID -StartDate $start -EndDate $end -WA silentlycontinue ;
+             $Out = Get-CalendarDiagnosticObjects -Identity $user -MeetingId $ID -StartDate $start2 -EndDate $end -WA silentlycontinue ;
             $DayN = (get-date $Cal[$C].LogDate).DayOfWeek ; 
          $Datestr = get-date $Cal[$C].LogDate -Format yyyy-MM-dd-HHmm ;
    [string]$FileN =  $Cal[$C].CleanGlobalObjectId + '_' + $DayN + '_' + $Datestr + '-' + $Cal[$C].NormalizedSubject 
