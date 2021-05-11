@@ -19,8 +19,8 @@ $Select = $MBXs | select userprincipalname,Displayname,windows*,Alias,Exchangegu
 
 $User = "$($Select.userprincipalname)"
 
-$startDays = "-30" # [-] days in past
-$startDays2 = "-90" # [-] days in past
+$startDays = "-90" # [-] days in past
+$startDays2 = "-180" # [-] days in past
   $endDays = "30"  # [+] days in future
  
 $path = $logsPATH
