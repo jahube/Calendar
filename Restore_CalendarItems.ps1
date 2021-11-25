@@ -3,8 +3,12 @@ Install-Module -Name ExchangeOnlineManagement
 
 Connect-ExchangeOnline
 
-
    $USER = "Modify user"     #  <-- Modify
+
+# OutGridView Calendar Items - select + Restore
+
+Get-RecoverableItems -Identity $USER -FilterItemType "IPM.Appointment" | OGV -PassThru | Restore-RecoverableItems
+
 
 $Logpath = "C:\temp"
 
@@ -25,12 +29,15 @@ $FolderStats = (Get-MailboxFolderStatistics $user).where( {$_.ContainerClass -eq
 
 $FolderStats | Fl * > "$Logpath\ALL_Calendar_Folders.txt"
 
-# OutGridView Calendar Items - select + Restore
+
+<#
 
 $ContainerClass_Array = @("IPM.Appointment","IPF.Appointment")
 
-$recoverable_Items = Get-RecoverableItems -Identity $USER -FilterItemType 
+$recoverable_Items = Get-RecoverableItems -Identity $USER -FilterItemType "IPM.Appointment"
 
 $recoverable_Items.where( {$_.ItemClass -in $ContainerClass_Array}) | OGV -PassThru | Restore-RecoverableItems
 
 $recoverable_Items.where( {$_.ItemClass -in $ContainerClass_Array}) | fl *
+
+#>
